@@ -9,7 +9,6 @@
 </template>
 <script>
 import "quill/dist/quill.bubble.css";
-import "quilljs-markdown/dist/quilljs-markdown-common-style.css";
 import hljs from "highlight.js";
 
 import Quill from "quill";
