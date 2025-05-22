@@ -82,4 +82,4 @@ The easiest way to contribute is to fork the project and raise PR's. Though, do 
 
 ## License
 
-[MIT](LICENSE) &copy; Reaper
+[GPL](LICENSE) &copy; ta0a2000t
