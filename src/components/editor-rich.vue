@@ -42,8 +42,6 @@ export default {
           ],
         },
       });
-      quill.format("direction", "rtl");
-      quill.format("align", "right");
 
       // enable markdown conversion
       new QuillMarkdown(quill, {
@@ -64,8 +62,9 @@ export default {
         }
       }
 
-      //quill.setContents(ops);
-
+      quill.setContents(ops);
+      quill.format("direction", "rtl");
+      quill.format("align", "right");
       quill.on("text-change", () => {
         const { ops } = quill.getContents();
         const markdownCode = deltaToMarkdown(ops);
