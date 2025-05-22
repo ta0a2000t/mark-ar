@@ -36,10 +36,14 @@ export default {
           },
           toolbar: [
             ["bold", "italic", "underline", "strike"],
-            ["blockquote", "code-block"],
+            ["code-block"],
+            [{ direction: "rtl" }],
+            [{ align: "right" }],
           ],
         },
       });
+      quill.format("direction", "rtl");
+      quill.format("align", "right");
 
       // enable markdown conversion
       new QuillMarkdown(quill, {
@@ -60,7 +64,7 @@ export default {
         }
       }
 
-      quill.setContents(ops);
+      //quill.setContents(ops);
 
       quill.on("text-change", () => {
         const { ops } = quill.getContents();
