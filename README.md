@@ -1,7 +1,8 @@
 <h1 align="center">Mark</h1>
 <p align="center">Web Markdown Editor</p>
 
-[![](https://img.shields.io/badge/license-mit-black?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
 
 ## Motivation
 
