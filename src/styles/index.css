@@ -172,3 +172,62 @@ a {
   border: 0px;
   border-radius: 4px;
 }
+
+
+/* code blocks are always ltr */
+
+/* Ensure code highlighting maintains LTR */
+.hljs {
+  direction: ltr !important;
+  text-align: left !important;
+}
+/* Enhanced CSS to force code blocks to always be LTR */
+
+/* Base code block styles - highest specificity */
+.ql-editor .ql-code-block-container,
+.ql-editor .ql-code-block-container.ql-align-right,
+.ql-editor .ql-code-block-container.ql-direction-rtl,
+.ql-editor .ql-code-block-container.ql-align-right.ql-direction-rtl,
+.ql-editor div[class*="ql-code-block"],
+.ql-editor div.ql-code-block {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: embed !important;
+}
+
+/* Target any code block with RTL classes specifically */
+.ql-editor .ql-code-block-container.ql-direction-rtl,
+.ql-editor .ql-code-block-container[dir="rtl"],
+.ql-editor div.ql-code-block.ql-direction-rtl,
+.ql-editor div.ql-code-block[dir="rtl"] {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: embed !important;
+}
+
+/* Override any inline styles that Quill might apply */
+.ql-editor .ql-code-block-container[style*="direction"],
+.ql-editor .ql-code-block-container[style*="text-align"],
+.ql-editor div.ql-code-block[style*="direction"],
+.ql-editor div.ql-code-block[style*="text-align"] {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+/* Ensure the content inside code blocks is also LTR */
+.ql-editor .ql-code-block-container *,
+.ql-editor div.ql-code-block *,
+.ql-editor .ql-code-block-container span,
+.ql-editor div.ql-code-block span {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: embed !important;
+}
+
+/* Target code blocks with any combination of Quill's RTL classes */
+.ql-editor [class*="ql-code-block"][class*="ql-direction-rtl"],
+.ql-editor [class*="ql-code-block"][class*="ql-align-right"] {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: embed !important;
+}
