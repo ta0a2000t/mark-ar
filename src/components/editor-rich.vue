@@ -57,15 +57,11 @@ export default {
                     delete newAttributes.color;
                     delete newAttributes.background;
                     // You might want to remove other inline styling attributes to enforce consistency
-                    // e.g., font, size, style, class (if they bring unwanted styling)
                     delete newAttributes.font;
                     delete newAttributes.size;
-                    // Be cautious with removing all `style` or `class` attributes,
-                    // as some might be necessary for basic layout or semantic meaning.
-                    // For a "one to one to original markdown form" with no extra styling,
-                    // you'd typically remove most presentation-related attributes.
 
                     // Apply desired block-level formats to all lines/blocks
+                    // This ensures direction and align are consistently applied to pasted content
                     newAttributes.direction = "rtl";
                     newAttributes.align = "right";
 
@@ -85,7 +81,8 @@ export default {
         },
       });
 
-      // Set default direction and alignment immediately after Quill initialization
+      // It's still good practice to set these defaults on initialization,
+      // as they apply to new content typed directly.
       quill.format("direction", "rtl");
       quill.format("align", "right");
 
@@ -109,9 +106,15 @@ export default {
       }
 
       quill.setContents(ops);
-      // Re-apply formats after setting initial content to ensure consistency
-      quill.format("direction", "rtl");
-      quill.format("align", "right");
+
+      // *** FIX FOR RELOAD ALIGNMENT ISSUE ***
+      // After setting the initial content, explicitly apply direction and alignment
+      // to the entire document to ensure all lines are correctly formatted.
+      // quill.getLength() returns the total length of the editor's content.
+      quill.formatLine(0, quill.getLength(), "direction", "rtl", "api");
+      [8];
+      quill.formatLine(0, quill.getLength(), "align", "right", "api");
+      [8];
 
       quill.on("text-change", () => {
         const { ops } = quill.getContents();
