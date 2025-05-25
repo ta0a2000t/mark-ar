@@ -79,9 +79,6 @@ a {
   padding: calc(var(--base-spacing) * 5);
 }
 
-.mt-1 {
-  margin-top: calc(var(--base-spacing) * 1);
-}
 
 .mb-2 {
   margin-bottom: calc(var(--base-spacing) * 2);
