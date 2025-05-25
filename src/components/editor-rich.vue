@@ -10,7 +10,33 @@
 
 <script>
 import "quill/dist/quill.bubble.css";
-import hljs from "highlight.js";
+// Import a highlight.js theme for syntax highlighting
+import "highlight.js/styles/atom-one-dark.css"; // You can choose another theme from highlight.js/styles
+
+import hljs from "highlight.js/lib/core"; // Import the core
+// Import specific languages you want to highlight
+import javascript from "highlight.js/lib/languages/javascript";
+import xml from "highlight.js/lib/languages/xml"; // For HTML, XML, etc. (useful for web-related code)
+import css from "highlight.js/lib/languages/css";
+import plaintext from "highlight.js/lib/languages/plaintext";
+import markdown from "highlight.js/lib/languages/markdown";
+import golang from "highlight.js/lib/languages/go";
+import rust from "highlight.js/lib/languages/rust";
+import python from "highlight.js/lib/languages/python";
+import c from "highlight.js/lib/languages/c";
+import cpp from "highlight.js/lib/languages/cpp";
+
+// Register the languages with highlight.js
+hljs.registerLanguage("python", python);
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("xml", xml); // For HTML/XML
+hljs.registerLanguage("css", css);
+hljs.registerLanguage("plaintext", plaintext);
+hljs.registerLanguage("markdown", markdown);
+hljs.registerLanguage("rust", rust);
+hljs.registerLanguage("go", golang);
+hljs.registerLanguage("cpp", cpp);
+hljs.registerLanguage("c", c);
 
 import Quill from "quill";
 import QuillMarkdown from "quilljs-markdown";
@@ -36,7 +62,7 @@ export default {
         theme: "bubble",
         modules: {
           syntax: {
-            hljs,
+            hljs, // Highlight.js instance
           },
           toolbar: [
             ["bold", "italic", "underline", "strike"],
@@ -97,9 +123,6 @@ export default {
       try {
         ops = JSON.parse(props.opsState);
       } catch (err) {
-        // Migration change to move from
-        // storing markdown to quill delta
-        // if a syntax error is found, try converting it
         if (err instanceof SyntaxError) {
           ops = converter.convert(props.opsState);
         }
@@ -112,9 +135,7 @@ export default {
       // to the entire document to ensure all lines are correctly formatted.
       // quill.getLength() returns the total length of the editor's content.
       quill.formatLine(0, quill.getLength(), "direction", "rtl", "api");
-      [8];
       quill.formatLine(0, quill.getLength(), "align", "right", "api");
-      [8];
 
       quill.on("text-change", () => {
         const { ops } = quill.getContents();
@@ -147,4 +168,10 @@ export default {
 
 <style scoped>
 /* Any component-specific styles can go here if needed */
+/* If you need to override Quill's default code block styles, do it here */
+/* For example, to adjust padding or font size for code blocks */
+.ql-syntax {
+  /* Example: add some padding to code blocks */
+  padding: 10px;
+}
 </style>
