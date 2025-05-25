@@ -1,12 +1,6 @@
 <template>
   <BaseLayout>
     <Toast ref="toastRef" />
-    <Editor
-      v-if="settings.value.rawMode"
-      class="mt-1"
-      v-on:change="handleRawChange"
-      v-bind:code="state.code"
-    />
     <RichEditor
       v-if="!settings.value.rawMode"
       v-on:change="handleChange"
@@ -14,22 +8,21 @@
       v-bind:opsState="state.opsFromStorage"
     />
     <Toolbar>
-      <Menu triggerLabel="Menu">
+      <Menu triggerLabel="القائمة">
         <MenuItem
-          label="Copy as Markdown"
+          label="(Markdown)انسخ كـ"
           @click="handleCopyAsMD"
           modifier="⌘ + ⇧ + c"
         />
-        <MenuItem label="Copy as HTML" @click="handleCopyAsHTML" />
-        <MenuItem label="Save File" modifier="⌘ + s" @click="handleSaveFile" />
+        <MenuItem label="(HTML)انسخ كـ" @click="handleCopyAsHTML" />
+        <MenuItem label="حمِّل كملف" modifier="⌘ + s" @click="handleSaveFile" />
         <MenuItem
-          label="Save File as HTML"
+          label="HTML حمِّل بصيغة"
           modifier="⌘ + ⇧ + s "
           @click="handleSaveAsHTML"
         />
-        <MenuItem label="Save File as PDF" @click="handleSaveAsPDF" />
-        <MenuItem label="Save File as Image" @click="handleSaveAsImage" />
-        <MenuItem label="Settings" @click="openSettings" />
+        <MenuItem label="PDF حمِّل بصيغة" @click="handleSaveAsPDF" />
+        <MenuItem label="حمِّل كصورة" @click="handleSaveAsImage" />
       </Menu>
       <div class="flex align-center">
         <Button
@@ -74,11 +67,6 @@
         </Button>
       </div>
     </Toolbar>
-    <!-- <Preview v-if="state.showPreview" v-bind:code="marked(state.code)" /> -->
-    <SettingsModal
-      v-if="state.modals.settings"
-      :onClose="onSettingsModalClose"
-    />
   </BaseLayout>
 </template>
 
@@ -86,7 +74,6 @@
 import BaseLayout from "../components/base-layout.vue";
 import Button from "../components/button.vue";
 import RichEditor from "../components/editor-rich.vue";
-import Editor from "../components/editor.vue";
 import MenuItem from "../components/menu-item.vue";
 import Menu from "../components/menu.vue";
 import Toolbar from "../components/toolbar.vue";
@@ -94,7 +81,6 @@ import toImage from "dom-to-image";
 import download from "downloadjs";
 import html2pdf from "html2pdf.js";
 import { onMounted, onUnmounted, reactive, ref } from "vue";
-import SettingsModal from "../components/settings-modal.vue";
 import Toast from "../components/toast.vue";
 import { copy } from "../lib/copy";
 import getMDStyles from "../lib/get-md-styles";
@@ -159,14 +145,6 @@ function shortcutListener(e) {
     e.preventDefault();
     return handleSaveFile();
   }
-}
-
-function openSettings() {
-  state.modals.settings = true;
-}
-
-function onSettingsModalClose() {
-  state.modals.settings = false;
 }
 
 function handleRawChange(code) {
@@ -234,7 +212,7 @@ async function handleSaveAsPDF() {
     </style>`;
     const options = {
       margin: 0.25,
-      filename: "mark.pdf",
+      filename: "مدونة.pdf",
       jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
     };
 
@@ -254,7 +232,7 @@ async function handleSaveAsImage() {
           },
         })
         .then((blob) => {
-          download(blob, `mark.png`, "image/png");
+          download(blob, `مدونة.png`, "image/png");
         })
         .catch((err) => {
           console.error(err);
