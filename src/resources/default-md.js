@@ -1,1 +1,4 @@
-export const defaultMarkdownText = ``;
+export const defaultMarkdownText = `# اهلا وسهلا ومرحبا
+- واحد
+- اثنين
+- ثلاثة`;
